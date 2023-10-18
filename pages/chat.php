@@ -1,6 +1,6 @@
 <?php
 
-include_once('config.php');
+include_once('../config/config.php');
 
 if(!isset($_SESSION['user'])){
     header('location: login.php');
@@ -25,12 +25,12 @@ $tipo = "grupo";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafhy</title>
-    <link rel="stylesheet" href="style/chat.css">
+    <link rel="stylesheet" href="../style/chat.css">
 </head>
 <body>
 
     <nav>
-        <a href="index.php"><</a>
+        <a href="../"><</a>
         <p><?php echo $chave;?></p>
     </nav>
 
@@ -58,19 +58,19 @@ $tipo = "grupo";
     $('#enviar-mensagem').submit(function(event) {
         event.preventDefault();
         var mensagem = $('#mensagem').val();
-        var tipo = <?php echo $tipo;?>;
+        var tipo = '<?php echo $tipo;?>';
         var user_name = '<?php echo $user_name; ?>';
         var destino = '<?php $chave = $_GET['id'];
         $chave = str_replace("'", "", $chave); echo $chave; ?>';
         
         
         $.ajax({
-            url: 'envio.php',
+            url: '../controllers/envio.php',
             type: 'POST',
             data:{
                 mensagem: mensagem,
                 tipo: tipo,
-                user_name: user_name;
+                user_name: user_name,
                 destino: destino
             },
             success: function(response) {
@@ -86,7 +86,7 @@ $tipo = "grupo";
       var chat = '<?php echo $chave; ?>';
       var user_name = '<?php echo $user_name; ?>';
       $.ajax({
-        url: 'enviar_mensagem.php',
+        url: '../controllers/send/enviar_mensagem.php',
         type: 'POST',
         data: {
           chat: chat,
@@ -106,7 +106,7 @@ $tipo = "grupo";
       var chat = '<?php echo $chave; ?>';
       num_mensagens = $('#mensagens2 .mensagem').length;
       $.ajax({
-        url: 'atualizar_mensagens.php',
+        url: '../controllers/atualizar_mensagens.php',
         type: 'POST',
         data: {
           chat: chat

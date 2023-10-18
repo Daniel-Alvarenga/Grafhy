@@ -1,6 +1,6 @@
 <?php
 
-include_once('config.php');
+include_once('../../config/config.php');
 
 if(!isset($_SESSION['user'])){
     exit;
@@ -10,14 +10,14 @@ else{
 }
 
 $mensagem = $_POST['mensagem'];
-$grupo = $_POST['grupo'];
+$contato = $_POST['contato'];
 
 if(isset($_POST['mensagem'])){
     $mensagem = $_POST['mensagem'];
     $dia = date("Y-m-d H:i:s");
 
     if(!empty($mensagem)){
-        mysqli_query($conn, "INSERT INTO mensagem_grupo VALUES (DEFAULT, '$mensagem', '$dia', '$grupo', '$user_name');");
+        mysqli_query($conn, "INSERT INTO privado VALUES (DEFAULT, '$mensagem', '$dia', '$contato', '$user_name');");
     }
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-include_once('config.php');
+include_once('../config/config.php');
 
 if(!isset($_SESSION['user'])){
     header('location: login.php');
@@ -145,14 +145,14 @@ if(isset($_POST['recusargrupo'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafhy</title>
-    <link rel="stylesheet" href="style/contato.css">
+    <link rel="stylesheet" href="../style/contato.css">
 </head>
 <body>
 
     <nav>
     <div class="logo\">Grafy</div>
     <div class="content">
-        <a href="index.php">Chats</a>
+        <a href="../">Chats</a>
         <a id="c4">Contatos</a>
         <a id="btn1"><?php echo $name?></a>
     </div>
@@ -227,7 +227,7 @@ if(isset($_POST['recusargrupo'])){
    
 </body>
 
-<script src="script/script.js"></script>
+<script src="../script/script.js"></script>
  
 <script>
     document.getElementById('c3').onclick = () => {
@@ -254,7 +254,7 @@ if(isset($_POST['recusargrupo'])){
     function atualizarConexoes() {
         var user_name = '<?php echo $user_name; ?>';
         $.ajax({
-        url: 'atualizar_contatos.php',
+        url: '../controllers/atualizar_contatos.php',
         type: 'POST',
         data: {
             user_name: user_name
@@ -273,7 +273,7 @@ if(isset($_POST['recusargrupo'])){
     function atualizarLastOnline() {
         var user_name = '<?php echo $user_name; ?>';
         $.ajax({
-            url: 'online.php',
+            url: '../controllers/online.php',
             type: 'POST',
             data: {
             user_name: user_name

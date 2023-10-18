@@ -1,9 +1,9 @@
 <?php
 
-include_once('config.php');
+include_once('config/config.php');
 
 if(!isset($_SESSION['user'])){
-    header('location: login.php');
+    header('location: pages/login.php');
 }
 else{
     $user_name = $_SESSION['user'];
@@ -41,7 +41,7 @@ if(isset($_POST['submit']) && !empty($_POST['chave'])){
         }
     }
 
-    header("location: chat.php?id='$chave'");
+    header("location: pages/chat.php?id='$chave'");
 }
 
 ?>
@@ -57,7 +57,7 @@ if(isset($_POST['submit']) && !empty($_POST['chave'])){
 </head>
 <body>
 
-    <?php echo $nav?>
+    <?php echo str_replace('../', '#', $nav)?>
 
     <div class="perfil" id="perfil">
         <aside id="aside">
@@ -112,7 +112,7 @@ if(isset($_POST['submit']) && !empty($_POST['chave'])){
     function atualizarLastOnline() {
         var user_name = '<?php echo $user_name; ?>';
         $.ajax({
-            url: 'online.php',
+            url: 'controllers/online.php',
             type: 'POST',
             data: {
             user_name: user_name
@@ -132,7 +132,7 @@ if(isset($_POST['submit']) && !empty($_POST['chave'])){
     function atualizarConexoes() {
         var user_name = '<?php echo $user_name; ?>';
         $.ajax({
-        url: 'atualizar_chats.php',
+        url: 'controllers/atualizar_chats.php',
         type: 'POST',
         data: {
             user_name: user_name

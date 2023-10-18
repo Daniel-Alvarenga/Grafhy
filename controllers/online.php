@@ -1,5 +1,5 @@
 <?php
-include_once('config.php');
+include_once('../config/config.php');
 
 $user_name = $_POST['user_name'];
 $data = date("Y-m-d H:i:s");

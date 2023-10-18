@@ -1,9 +1,9 @@
 <?php
 
-include_once('config.php');
+include_once('../config/config.php');
 
 if(!isset($_SESSION['user'])){
-    header('location: login.php');
+    header('location: ../pages/login.php');
 }
 else{
     $user_name = $_SESSION['user'];

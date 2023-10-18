@@ -1,6 +1,6 @@
 <?php
 
-include_once('config.php');
+include_once('../config/config.php');
 
 $user_name = $_POST['user_name'];
     
@@ -20,5 +20,5 @@ while($var = mysqli_fetch_assoc($result)){?>
     $row = mysqli_fetch_assoc($number);
     $number_value = $row['user_number'];
 
-    echo "<div class=\"chat\"><a href=\"chat.php?id='$chat'\"><p>$chat</p> <p>$number_value</p></a></div>";?></p>
+    echo "<div class=\"chat\"><a href=\"pages/chat.php?id='$chat'\"><p>$chat</p> <p>$number_value</p></a></div>";?></p>
 <?php } ?>

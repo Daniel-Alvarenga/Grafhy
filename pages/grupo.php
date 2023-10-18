@@ -1,6 +1,6 @@
 <?php
 
-include_once('config.php');
+include_once('../config/config.php');
 
 $user_name = $_SESSION['user'];
 
@@ -71,7 +71,7 @@ else{
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafhy</title>
-    <link rel="stylesheet" href="style/grupo.css">
+    <link rel="stylesheet" href="../style/grupo.css">
 </head>
 <body>
     <nav>
@@ -142,7 +142,6 @@ else{
     </form>
     
 </body>
-<script src="script/script.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     var num_novas_mensagens;
@@ -152,19 +151,19 @@ else{
         $('#enviar-mensagem').submit(function(event) {
         event.preventDefault();
         var mensagem = $('#mensagem').val();
-        var tipo = <?php echo $tipo;?>;
+        var tipo = '<?php echo $tipo;?>';
         var user_name = '<?php echo $user_name; ?>';
         var destino = '<?php $grupo = $_GET['id'];
         $grupo = str_replace("'", "", $grupo); echo $grupo; ?>';
         
         
         $.ajax({
-            url: 'envio.php',
+            url: '../controllers/envio.php',
             type: 'POST',
             data:{
                 mensagem: mensagem,
                 tipo: tipo,
-                user_name: user_name;
+                user_name: user_name,
                 destino: destino
             },
             success: function(response) {
@@ -181,7 +180,7 @@ else{
             $grupo = str_replace("'", "", $grupo); echo $grupo; ?>';
             var user_name = '<?php echo $user_name; ?>';
             $.ajax({
-            url: 'enviar_grupo.php',
+            url: '../controllers/send/enviar_grupo.php',
             type: 'POST',
             data: {
                 grupo: grupo,
@@ -203,7 +202,7 @@ else{
         num_mensagens = $('#mensagens2 .mensagem').length;
 
         $.ajax({
-        url: 'atualizar_grupo.php',
+        url: '../controllers/atualizar_grupo.php',
         type: 'POST',
         data: {
             grupo: grupo
@@ -235,7 +234,7 @@ else{
     function atualizarLastOnline() {
         var user_name = '<?php echo $user_name; ?>';
         $.ajax({
-            url: 'online.php',
+            url: '../controllers/online.php',
             type: 'POST',
             data: {
             user_name: user_name
@@ -255,7 +254,7 @@ else{
         $grupo = str_replace("'", "", $grupo); echo $grupo; ?>';
 
         $.ajax({
-        url: 'atualizar_usuarios.php',
+        url: '../controllers/atualizar_usuarios.php',
         type: 'POST',
         data: {
             grupo: grupo

@@ -1,6 +1,6 @@
 <?php
 
-include_once('config.php');
+include_once('../config/config.php');
 
 $user_name = $_SESSION['user'];
 
@@ -26,12 +26,23 @@ $tipo = "contato";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafhy</title>
-    <link rel="stylesheet" href="style/privado.css">
+    <link rel="stylesheet" href="../style/privado.css">
 </head>
 <body>
     <nav>
         <a href="contatos.php"><</a>
-        <a id="btn1"><?php echo $contato;?></a>
+        <div class="content">
+            <a id="btn1" style="margin-right: 10px; z-index: 999"><?php echo $contato;?></a>
+            <?php
+            $name = $contato;
+
+            $perfil = mysqli_query($conn, "SELECT * FROM perfil where user_name='$name'");
+            $perfil = mysqli_fetch_assoc($perfil);
+            
+            echo "<img onclick=\"EA()\" src=\"data:" . $perfil['arquivo'] . ";base64," . base64_encode($perfil['foto']) . "\" class=\"profile\"/>";
+            
+            ?>
+        </div>
     </nav>
 
     <div class="perfil" id="perfil">
@@ -71,9 +82,23 @@ $tipo = "contato";
     </form>
     
 </body>
-<script src="script/script.js"></script>
+<script src="../script/script.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    function EA() {
+        if (x == 1) {
+            perfil.classList.add("abrir");
+            perfil.classList.remove("perfil");
+            perfil.classList.remove("fechar");
+            btn2.style.display = "flex";
+            x = 2;
+        } else if (x == 2) {
+            perfil.classList.add("fechar");
+            perfil.classList.remove("abrir");
+            btn2.style.display = "none";
+            x = 1;
+        }
+    }
    var num_novas_mensagens;
    var num_mensagens;
 
@@ -85,13 +110,13 @@ $tipo = "contato";
 
         event.preventDefault();
         var mensagem = $('#mensagem').val();
-        var tipo = <?php echo $tipo;?>;
+        var tipo = '<?php echo $tipo;?>';
         var user_name = '<?php echo $user_name; ?>';
         var destino = '<?php $contato = $_GET['id'];
         $contato = str_replace("'", "", $contato); echo $contato; ?>';
         
         $.ajax({
-            url: 'envio.php',
+            url: '../controllers/send/envio.php',
             type: 'POST',
             data:{
                 mensagem: mensagem,
@@ -100,7 +125,8 @@ $tipo = "contato";
                 destino: destino
             },
             success: function(response) {
-            $('#mensagem').val('');
+            $('#mensagem').val('enviada');
+            console.log(response)
             atualizarMensagens();
             }
         });
@@ -110,7 +136,7 @@ $tipo = "contato";
         var contato = '<?php echo $contato; ?>';
         num_mensagens = $('#mensagens2 .mensagem').length;
         $.ajax({
-        url: 'atualizar_privadas.php',
+        url: '../controllers/atualizar_privadas.php',
         type: 'POST',
         data: {
             contato: contato
@@ -143,7 +169,7 @@ $tipo = "contato";
     function atualizarPerfil() {
         var contato = '<?php echo $contato; ?>';
         $.ajax({
-        url: 'atualizar_perfil.php',
+        url: '../controllers/atualizar_perfil.php',
         type: 'POST',
         data: {
             contato: contato
@@ -161,7 +187,7 @@ $tipo = "contato";
     function atualizarLastOnline() {
         var user_name = '<?php echo $user_name; ?>';
         $.ajax({
-            url: 'online.php',
+            url: '../controllers/online.php',
             type: 'POST',
             data: {
             user_name: user_name

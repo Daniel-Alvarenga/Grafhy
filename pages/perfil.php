@@ -1,6 +1,6 @@
 <?php
 
-include_once('config.php');
+include_once('../config/config.php');
 
 if(!isset($_SESSION['pre_user'])){
   header("location: cadastro.php");
@@ -38,7 +38,7 @@ if(isset($_POST['submit'])){
             $resultado = mysqli_query($conn, "SELECT user_name FROM users WHERE user_email = '$email' AND user_pass = '$senha'");
             $usuario = mysqli_fetch_assoc($resultado);
             $_SESSION['user'] = $usuario['user_name'];
-            header("location: index.php");
+            header("location: ../");
         } else {
             echo "<script> alert(\"Erro inserir imagem no banco de dados.\");</script>";
         }
@@ -59,11 +59,11 @@ if(isset($_POST['submit'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Grafhy</title>
-    <link rel="stylesheet" href="style/cadastro.css">
+    <link rel="stylesheet" href="../style/cadastro.css">
 </head>
 <body>
     
-    <?php echo $nav?> 
+    <?php echo $nav;?> 
     
     <main>
         </form>
@@ -88,13 +88,10 @@ if(isset($_POST['submit'])){
     <?php echo $footer?>
     
 </body>
-<script src="script.js"></scrip>
+<script src="script.js"></script>
 </html>
 
 <style>
-    #perfil{
-        display: none;
-    }
 
     input[type="submit"]{
         width: 80%;
